@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Contract;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -20,6 +21,7 @@ class JobFactory extends Factory
 
         return [
             'user_id' => User::all()->random()->id,
+            'contract_id' => Contract::all()->random()->id,
             'company' => $this->faker->company,
             'title' => $title,
             'slug' => $slug,
@@ -29,6 +31,7 @@ class JobFactory extends Factory
             'location' => $this->faker->city(),
             'min_salary' => $this->faker->randomNumber(5),
             'max_salary' => $this->faker->randomNumber(5),
+            'working_day' => $this->faker->randomElement(['full-time', 'part-time']),
             'is_approved' => true
         ];
     }

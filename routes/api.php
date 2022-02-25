@@ -7,3 +7,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 require __DIR__ . '/api/job.php';
+require __DIR__ . '/api/contract.php';
+require __DIR__ . '/api/tag.php';

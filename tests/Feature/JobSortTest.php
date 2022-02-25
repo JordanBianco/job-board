@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Contract;
 use App\Models\Job;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,6 +16,7 @@ class JobSortTest extends TestCase
     {
         parent::setUp();
 
+        Contract::factory()->create();
         User::factory()->create();
     }
 

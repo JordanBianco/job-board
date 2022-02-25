@@ -13,9 +13,13 @@ class JobController extends Controller
     {
         $search = $request->search ?? '';
         $sort = $request->sort ?? 'latest';
+        $contract = $request->contract ?? '';
+        $working_day = $request->working_day ?? '';
 
         return JobResource::collection(
             Job::withSearch($search)
+                ->withContractType($contract)
+                ->withWorkingDay($working_day)
                 ->withSort($sort)
                 ->where('is_approved', true)
                 ->with('tags')

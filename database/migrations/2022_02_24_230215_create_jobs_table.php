@@ -16,6 +16,7 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('contract_id')->constrained()->cascadeOnDelete();
             $table->string('company');
             $table->string('title')->unique();
             $table->string('slug');
@@ -25,14 +26,13 @@ class CreateJobsTable extends Migration
             $table->string('location');
             $table->integer('min_salary');
             $table->integer('max_salary');
+            $table->enum('working_day', ['full-time', 'part-time']);
             $table->boolean('is_approved')->default(false);
             $table->timestamps();
 
 
             // $table->integer('min_years_experience');
             // $table->integer('min_study');
-            // $table->integer('contratto');
-            // $table->integer('giornata lavorativa'); / full - part time
         });
     }
 
