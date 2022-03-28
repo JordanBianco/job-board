@@ -2,27 +2,21 @@
 
 namespace App\Models;
 
+use App\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
+
+    protected $guarded = [];
 
     protected $casts = [
         'is_approved' => 'boolean',
+        'remote_working' => 'boolean',
         'contract_id' => 'integer',
     ];
-
-    public function getMinSalaryAttribute($value)
-    {
-        return $value / 100;
-    }
-
-    public function getMaxSalaryAttribute($value)
-    {
-        return $value / 100;
-    }
 
     public function scopeWithSearch($query, $search)
     {
@@ -61,6 +55,24 @@ class Job extends Model
     {
         return $query->when($working_day, function($query) use($working_day) {
             $query->where('working_day', $working_day);
+        });
+    }
+
+    public function scopeWithRemoteWorking($query, $remote_working)
+    {
+        return $query->when($remote_working != '', function($query) use($remote_working) {
+            $query->where('remote_working', (boolean)$remote_working);
+        });
+    }
+
+    public function scopeWithTags($query, $tags)
+    {
+        return $query->when($tags, function($query) use($tags) {
+            $ids = explode(',', $tags);
+            
+            $query->whereHas('tags', function($query) use($ids) {
+                $query->whereIn('tags.id', $ids);
+            });
         });
     }
 

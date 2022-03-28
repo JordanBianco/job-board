@@ -17,6 +17,7 @@ class CreateJobTagTable extends Migration
             $table->id();
             $table->foreignId('job_id')->constrained()->cascadeOnDelete();
             $table->foreignId('tag_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 

@@ -5,12 +5,12 @@ namespace Tests\Feature;
 use App\Models\Contract;
 use App\Models\Job;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Tests\TestCase;
 
 class JobTest extends TestCase
 {
-    use RefreshDatabase;
+    use LazilyRefreshDatabase;
 
     public function setUp() :void
     {
@@ -24,7 +24,7 @@ class JobTest extends TestCase
     {
         Job::factory(5)->create();
 
-        $response = $this->get('/api/jobs');
+        $response = $this->getJson('/api/jobs');
 
         $response
             ->assertStatus(200)
@@ -48,7 +48,7 @@ class JobTest extends TestCase
 
         Job::factory()->create(['is_approved' => false ]);
 
-        $response = $this->get('/api/jobs');
+        $response = $this->getJson('/api/jobs');
 
         $response
             ->assertStatus(200)
@@ -69,7 +69,7 @@ class JobTest extends TestCase
     {
         $job = Job::factory()->create(['title' => 'test'])->first();
 
-        $response = $this->get('/api/jobs/' . $job->slug);
+        $response = $this->getJson('/api/jobs/' . $job->slug);
 
         $response
             ->assertStatus(200)

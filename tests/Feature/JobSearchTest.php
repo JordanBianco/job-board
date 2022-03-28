@@ -5,12 +5,12 @@ namespace Tests\Feature;
 use App\Models\Contract;
 use App\Models\Job;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Tests\TestCase;
 
 class JobSearchTest extends TestCase
 {
-    use RefreshDatabase;
+    use LazilyRefreshDatabase;
 
     public function setUp() :void
     {
@@ -34,7 +34,7 @@ class JobSearchTest extends TestCase
             'location' => 'Como',
         ]);
 
-        $response = $this->get('/api/jobs?search=test');
+        $response = $this->getJson('/api/jobs?search=test');
 
         $response
             ->assertStatus(200)
@@ -65,7 +65,7 @@ class JobSearchTest extends TestCase
             'location' => 'Como',
         ]);
 
-        $response = $this->get('/api/jobs?search=designer');
+        $response = $this->getJson('/api/jobs?search=designer');
 
         $response
             ->assertStatus(200)
@@ -96,7 +96,7 @@ class JobSearchTest extends TestCase
             'location' => 'Como',
         ]);
 
-        $response = $this->get('/api/jobs?search=roma');
+        $response = $this->getJson('/api/jobs?search=roma');
 
         $response
             ->assertStatus(200)

@@ -16,22 +16,23 @@ class JobFactory extends Factory
      */
     public function definition()
     {
-        $title = $this->faker->sentence(2);
+        $title = $this->faker->sentence(8);
         $slug = Str::slug($title);
 
         return [
             'user_id' => User::all()->random()->id,
             'contract_id' => Contract::all()->random()->id,
-            'company' => $this->faker->company,
             'title' => $title,
             'slug' => $slug,
-            'position' => $this->faker->sentence(2, false),
             'description' => $this->faker->paragraph(rand(20, 30)),
-            'logo' => null,
+            'apply_link' => $this->faker->url(),
+            'position' => $this->faker->sentence(2, false),
             'location' => $this->faker->city(),
-            'min_salary' => $this->faker->randomNumber(5),
-            'max_salary' => $this->faker->randomNumber(5),
+            'remote_working' => $this->faker->boolean(),
+            'salary' => $this->faker->randomNumber(5),
             'working_day' => $this->faker->randomElement(['full-time', 'part-time']),
+            'company' => $this->faker->company,
+            'logo' => null,
             'is_approved' => true
         ];
     }

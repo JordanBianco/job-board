@@ -10,6 +10,11 @@ class ContractController extends Controller
 {
     public function index() :JsonResource
     {
-        return ContractResource::collection(Contract::withCount('jobs')->get());
+        $contracts = Contract::withCount(['jobs' => function($query) {
+            $query->where('is_approved', true);
+        }])
+        ->get();
+
+        return ContractResource::collection($contracts);
     }
 }

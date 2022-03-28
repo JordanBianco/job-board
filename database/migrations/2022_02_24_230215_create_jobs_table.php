@@ -17,22 +17,19 @@ class CreateJobsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('contract_id')->constrained()->cascadeOnDelete();
-            $table->string('company');
-            $table->string('title')->unique();
+            $table->string('title');
             $table->string('slug');
-            $table->text('position');
             $table->text('description');
-            $table->string('logo')->nullable();
+            $table->string('apply_link');
+            $table->text('position');
             $table->string('location');
-            $table->integer('min_salary');
-            $table->integer('max_salary');
+            $table->boolean('remote_working');
+            $table->string('salary');
             $table->enum('working_day', ['full-time', 'part-time']);
+            $table->string('company');
+            $table->string('logo')->nullable();
             $table->boolean('is_approved')->default(false);
             $table->timestamps();
-
-
-            // $table->integer('min_years_experience');
-            // $table->integer('min_study');
         });
     }
 

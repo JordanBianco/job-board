@@ -5,12 +5,12 @@ namespace Tests\Feature;
 use App\Models\Contract;
 use App\Models\Job;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Tests\TestCase;
 
 class JobSortTest extends TestCase
 {
-    use RefreshDatabase;
+    use LazilyRefreshDatabase;
 
     public function setUp() :void
     {
@@ -34,7 +34,7 @@ class JobSortTest extends TestCase
             'updated_at' => now()->subHour()
         ]);
 
-        $response = $this->get('/api/jobs?sort=oldest');
+        $response = $this->getJson('/api/jobs?sort=oldest');
 
         $response
             ->assertStatus(200)
