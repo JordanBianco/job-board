@@ -18,15 +18,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        User::factory()->create([
+            'first_name' => 'user',
+            'last_name' => 'user',
+            'email' => 'user@user.com',
+        ]);
+
         $this->call(ContractSeeder::class);
         $this->call(TagSeeder::class);
 
         $tags = Tag::all();
 
-        $locations = ['Roma', 'Milano', 'Bologna', 'Torino'];
+        $locations = ['Roma', 'Milano', 'Bologna', 'Torino', 'Parma', 'Napoli'];
         $positions = ['Full Stack Developer', 'Backend Developer', 'Frontend Developer', 'UX Designer', 'Senior PHP Developer'];
 
-        User::factory(20)->create()->each(function($user) use($tags, $locations, $positions) {
+        User::factory(19)->create()->each(function($user) use($tags, $locations, $positions) {
             Job::factory(rand(5, 10))->create([
                 'user_id' => $user->id,
                 'contract_id' => Contract::all()->random()->id,
